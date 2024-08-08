@@ -1,25 +1,21 @@
 version: '3.8'
-services:
-  springboot-app:
-    build: .
-    ports:
-      - "8080:8080"
-    depends_on:
-      - mysql
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/user_management
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: rootpassword
 
+services:
   mysql:
-    image: mysql:8.0
+    image: mysql:latest
+    container_name: mysql-container
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: user_management
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - mysql-network
 
 volumes:
   mysql_data:
+
+networks:
+  mysql-network:
